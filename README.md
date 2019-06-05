@@ -16,4 +16,4 @@ Une fonction de sauvegarde existe. Au démarrage la page recharge la page enregi
 
 Attention la sauvegarde s'effectue sur le localstorage du navigateur. Ne changez pas de navigateur ou n'effacer pas vos données navigateurs, sinon vous perdriez vos données.
 
-D'une manière générale ne considérer pas que cette fonction de sauvegarde est fiable.
+D'une manière générale ne considérez pas que cette fonction de sauvegarde est fiable.
