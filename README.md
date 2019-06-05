@@ -1,13 +1,13 @@
 # tableau
-Tableau blanc à utiliser avec un vidéorprojecteur. Utile en classe pour écrire au tableau (correction, cours, etc.)
+Tableau blanc à utiliser avec un vidéoprojecteur. Utile en classe pour écrire au tableau (correction, cours, etc.)
 
 ## Utilisation
 Ouvrez le fichier tableau.html et commencez à écrire.
 
-Aucune connexion internet n'est nécessaire
+Aucune connexion internet n'est nécessaire.
 
 ## Formatage
-Des options de formatage sont disponibles à l'aide de la barre latérale.
+Des options de formatage sont disponibles à l'aide de la barre latérale (indice, exposant, titre, gras, ...)
 
 Il est aussi possible d'utiliser les raccourcis claviers. Les raccourcis sont indiqués en infobulle sur les boutons.
 
