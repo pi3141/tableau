@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>tableau virtuel</title>
+<!--<script src="medium-editor.min.js"></script>
+<script src="autolist.js"></script>
+<script>var editor = new MediumEditor('.editable');</script>-->
+<style>
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+body{
+color:#333;
+background-color:#eee;
+font-family:'noto serif',serif;
+font-size:2em;
+line-height:1;
+overflow-y : hidden;
+}
+* { box-sizing: border-box; }
+ul,ol {
+margin:.5em 0 0 0 ;
+}
+.medium-editor-toolbar{
+display:none;
+}
+nav{
+position: absolute;
+right: 0;
+display:grid;
+top :0;
+}
+button{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition:.2s
+}
+button:hover{
+opacity:.5;
+}
+h1{
+font-size:3rem;
+}
+h2{
+font-size:2.2rem;
+}
+#notif{
+position:absolute;
+bottom:-2em;
+right:5px;
+height:2em;
+background-color: #4caf50;
+color:white;
+padding:8px 14px;
+opacity:0.7;
+transition:1s;
+}
+</style>
+
+
+
+</head>
+<body>
+<nav>
+<button title="gras (ctrl + b)" onclick="document.execCommand('bold');setFocus();">B</button>
+<button title="souligner (ctrl + u)" onclick="document.execCommand('underline');setFocus();">U</button>
+<button title="numérotation (F12)" onclick="document.execCommand('insertOrderedList');setFocus();">ol</button>
+<button title="puces (ctrl + F12)" onclick="document.execCommand('insertUnorderedList');setFocus();">ul</button>
+<button title="ligne horizontale (ctrl + -)" onclick="document.execCommand('insertHorizontalRule');setFocus();">hr</button>
+<button title="indice (alt + b)" onclick="document.execCommand('subscript');setFocus();">sub</button>
+<button title="exposant (alt + p)" onclick="document.execCommand('superscript');setFocus();">sup</button>
+<button title="titre 1 (ctrl + 1)" onclick="document.execCommand('heading','','H1');setFocus();">H1</button>
+<button title="titre 2 (ctrl + 2)" onclick="document.execCommand('heading','','H2');setFocus();">H2</button>
+<button title="indenter (tab)" onclick="document.execCommand('indent');setFocus();">⇥</button>
+<button title="désindenter (shift + tab)" onclick="document.execCommand('outdent');setFocus();">⇤</button>
+<button title="sauvegarder" onclick="save();setFocus();">&#x2193;&#x20de;</button>
+</nav>
+<article id="main" contenteditable class="editable"  >
+<p><p>
+</article>
+<div id="notif">sauvé<div>
+
+<script>
+function setFocus(){
+	var el = document.getElementById('main');
+	main.focus();
+}
+
+
+
+
+document.addEventListener('keydown', function(e){
+console.log(e.which);
+//bold
+if (e.ctrlKey && e.which === 66){
+    e.preventDefault(e);
+    document.execCommand('bold');
+    setFocus();
+}
+//underline
+if (e.ctrlKey && e.which === 85){
+    e.preventDefault(e);
+    document.execCommand('underline');
+    setFocus();
+}
+//orderedlist
+if (!e.shiftkey && e.which === 123){
+    e.preventDefault(e);
+    document.execCommand('insertOrderedList');
+    setFocus();
+}
+//unorderedlist
+if (e.shiftKey && e.which === 123){
+    e.preventDefault(e);
+    document.execCommand('insertUnorderedList');
+    setFocus();
+}
+//hr
+if (e.ctrlKey && e.which === 109){
+    e.preventDefault(e);
+    document.execCommand('insertHorizontalRule');
+    setFocus();
+}
+//subscript
+if (e.altKey && e.which === 66){
+    e.preventDefault(e);
+    document.execCommand('subscript');
+    setFocus();
+}
+//superscript
+if (e.altKey && e.which === 80){
+    e.preventDefault(e);
+    document.execCommand('superscript');
+    setFocus();
+}
+//h1
+if (e.altKey && e.which === 97){
+    e.preventDefault(e);
+    document.execCommand('heading','','H1');
+    setFocus();
+}
+//h2
+if (e.altKey && e.which === 98){
+    e.preventDefault(e);
+    document.execCommand('heading','','H2');
+    setFocus();
+}
+//tab
+if (!e.shiftKey && e.which === 9){
+    e.preventDefault(e);
+    document.execCommand('indent');
+    setFocus();
+}
+//shift tab
+if (e.shiftKey && e.which === 9){
+    e.preventDefault(e);
+    document.execCommand('outdent');
+    setFocus();
+}
+
+});
+
+
+
+function save(){ // store the new content in localStorage when the button is clicked
+	var el = document.getElementById('main');
+    var notif = document.getElementById('notif');
+    localStorage.newContent1 = el.innerHTML;
+    notif.style.bottom = 0;
+    setTimeout(function() { notif.style.bottom = "-2em"; }, 4000);
+    
+    
+}
+
+if(localStorage.getItem('newContent1')) { // apply the newContent when it exists in localStorage
+    var el = document.getElementById('main');
+	el.innerHTML = localStorage.getItem('newContent1');
+	}	
+
+setFocus();
+
+</script>
+
+</body>
+</html>
