@@ -1,6 +1,15 @@
 # tableau [(english version below)](#tableau-en)
 Tableau blanc à utiliser avec un vidéoprojecteur. Utile en classe pour écrire au tableau (correction, cours, etc.)
 
+## Fonctionnalités
+
+* ne nécessite aucune installation, simplement un navigateur
+* fichier léger (5ko)
+* plusieurs fonctions de formatage (gras, souligné, titre, indentation, liste, etc.)
+* raccourcis claviers
+* sauvegarde du tableau en cours dans le localstorage
+* aucune connexion internet requise
+
 ## Utilisation
 Ouvrez le fichier tableau.html et commencez à écrire.
 
@@ -21,17 +30,26 @@ D'une manière générale ne considérez pas que cette fonction de sauvegarde es
 # tableau en
 Virtual white board for videoprojection. Usefull for quickly writing text in classroom.
 
-## Utilisation
+## Features
+
+* no installation required. Only browser.
+* one single html file with small footprint (5ko)
+* format options
+* keyboard shortcut
+* board saving on localstorage
+* no internet connection required
+
+## Usage
 Open tableau.html with your browser and start to write.
 
 No internet connection required.
 
-## Formatage
+## Format
 Many format options available (subscript, superscript, title, bold, …) accesible from the right bar.
 
 Keyboard shortcut can be found on button tooltip.
 
-## Sauvegarde
+## Save
 Written text can be saved. At loading, previous saved board is loaded.
 
 Be careful saving is made on browser localstorage. Do not change browser nor delete localstorage to avoid data loss. Anyway consider board saving as unreliable.
