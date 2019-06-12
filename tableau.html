@@ -4,36 +4,35 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <title>tableau virtuel</title>
-<!--<script src="medium-editor.min.js"></script>
-<script src="autolist.js"></script>
-<script>var editor = new MediumEditor('.editable');</script>-->
 <style>
 [contenteditable]:focus {
-    outline: 0px solid transparent;
+  outline: 0px solid transparent;
 }
 body{
-color:#333;
-background-color:#eee;
-font-family:'noto serif',serif;
-font-size:2em;
-line-height:1;
-overflow-y : hidden;
+  color:#333;
+  background-color:#eee;
+  font-family:'noto serif',serif;
+  font-size:2em;
+  line-height:1;
+  overflow-y : hidden;
 }
 * { box-sizing: border-box; }
-ul,ol {
-margin:.5em 0 0 0 ;
-}
-.medium-editor-toolbar{
-display:none;
+  ul,ol {
+  margin:.5em 0 0 0 ;
 }
 nav{
-position: absolute;
-right: 0;
-display:grid;
-top :0;
+  position: absolute;
+  right: 0px;
+  display:grid;
+  top :0;
+  opacity:.3;
+  transition: all .5s;
+}
+nav:hover{
+  opacity:1;
 }
 button{
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 8px 14px;
@@ -44,29 +43,26 @@ button{
   transition:.2s
 }
 button:hover{
-opacity:.5;
+  opacity:.5;
 }
 h1{
-font-size:3rem;
+  font-size:3rem;
 }
 h2{
-font-size:2.2rem;
+  font-size:2.2rem;
 }
 #notif{
-position:absolute;
-bottom:-2em;
-right:5px;
-height:2em;
-background-color: #4caf50;
-color:white;
-padding:8px 14px;
-opacity:0.7;
-transition:1s;
+  position:absolute;
+  bottom:-2em;
+  right:5px;
+  height:2em;
+  background-color: #4caf50;
+  color:white;
+  padding:8px 14px;
+  opacity:0.7;
+  transition:1s;
 }
 </style>
-
-
-
 </head>
 <body>
 <nav>
@@ -82,20 +78,40 @@ transition:1s;
 <button title="indenter (tab)" onclick="document.execCommand('indent');setFocus();">⇥</button>
 <button title="désindenter (shift + tab)" onclick="document.execCommand('outdent');setFocus();">⇤</button>
 <button title="sauvegarder" onclick="save();setFocus();">&#x2193;&#x20de;</button>
+<div style="height:20px"></div>
+<button id="tab1" title="tableau 1 (alt+F1)" onclick="showBoard(1);">①</button>
+<button id="tab2" title="tableau 2 (alt+F2)" onclick="showBoard(2);">②</button>
+<button id="tab3" title="tableau 3 (alt+F3)" onclick="showBoard(3);">③</button>
 </nav>
-<article id="main" contenteditable class="editable"  >
-<p><p>
-</article>
+
+<div id="main1" class="board" contenteditable class="editable"></div>
+<div id="main2" class="board" contenteditable class="editable"></div>
+<div id="main3" class="board" contenteditable class="editable"></div>
 <div id="notif">sauvé</div>
 
 <script>
-function setFocus(){
-	var el = document.getElementById('main');
-	main.focus();
+var activeBoard;
+showBoard(1);
+
+function showBoard(aBoard){
+  activeBoard=aBoard;
+  let i = 0;
+  while(i < 3){
+    i++;
+    if (i == aBoard){
+    document.getElementById('main'+i).style.display="block";
+	document.getElementById('tab'+i).style.backgroundColor="#444";
+    }else{
+    document.getElementById('main'+i).style.display="none";
+	document.getElementById('tab'+i).style.backgroundColor="#4CAF50";
+    }
+  }
+  setFocus();
 }
-
-
-
+function setFocus(){
+	var el = document.getElementById('main'+activeBoard);
+	el.focus();
+}
 
 document.addEventListener('keydown', function(e){
 console.log(e.which);
@@ -165,25 +181,42 @@ if (e.shiftKey && e.which === 9){
     document.execCommand('outdent');
     setFocus();
 }
-
+//alt+f1
+if (e.altKey && e.which === 112){
+    e.preventDefault(e);
+    showBoard(1);
+    setFocus();
+}
+//alt+f2
+if (e.altKey && e.which === 113){
+    e.preventDefault(e);
+    showBoard(2);
+    setFocus();
+}
+//alt+f3
+if (e.altKey && e.which === 114){
+    e.preventDefault(e);
+    showBoard(3);
+    setFocus();
+}
 });
 
-
-
 function save(){ // store the new content in localStorage when the button is clicked
-	var el = document.getElementById('main');
-    var notif = document.getElementById('notif');
-    localStorage.newContent1 = el.innerHTML;
-    notif.style.bottom = 0;
-    setTimeout(function() { notif.style.bottom = "-2em"; }, 4000);
-    
-    
+  var el = document.getElementsByClassName('board');
+  var notif = document.getElementById('notif');
+  localStorage.boards1 = el[0].innerHTML;
+  localStorage.boards2 = el[1].innerHTML;
+  localStorage.boards3 = el[2].innerHTML;
+  notif.style.bottom = 0;
+  setTimeout(function() { notif.style.bottom = "-2em"; }, 4000);
 }
 
-if(localStorage.getItem('newContent1')) { // apply the newContent when it exists in localStorage
-    var el = document.getElementById('main');
-	el.innerHTML = localStorage.getItem('newContent1');
-	}	
+if(localStorage.getItem('boards')) { // apply the newContent when it exists in localStorage
+  var el = document.getElementsByClassName('board');
+  el[0].innerHTML = localStorage.getItem('boards1');
+  el[1].innerHTML = localStorage.getItem('boards2');
+  el[2].innerHTML = localStorage.getItem('boards3');
+}
 
 setFocus();
 
