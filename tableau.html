@@ -158,13 +158,13 @@ if (e.altKey && e.which === 80){
     setFocus();
 }
 //h1
-if (e.altKey && e.which === 97){
+if (e.ctrlKey && e.which === 97){
     e.preventDefault(e);
     document.execCommand('heading','','H1');
     setFocus();
 }
 //h2
-if (e.altKey && e.which === 98){
+if (e.ctrlKey && e.which === 98){
     e.preventDefault(e);
     document.execCommand('heading','','H2');
     setFocus();
