@@ -13,8 +13,9 @@ body{
   background-color:#eee;
   font-family:'noto serif',serif;
   font-size:2em;
-  line-height:1;
-  overflow-y : hidden;
+  line-height:1.15;
+  overflow : hidden;
+  caret-color:#4CAF50;
 }
 * { box-sizing: border-box; }
   ul,ol {
@@ -22,14 +23,16 @@ body{
 }
 nav{
   position: absolute;
-  right: 0px;
+  right: -50px;
   display:grid;
   top :0;
-  opacity:.3;
-  transition: all .5s;
+  transition: all .25s ease-out;
+  width:60px;
+  transition-delay:3s;
 }
 nav:hover{
-  opacity:1;
+  right:0px;
+  transition: all .5s ease-out;
 }
 button{
   background-color: #4CAF50;
@@ -52,15 +55,22 @@ h2{
   font-size:2.2rem;
 }
 #notif{
-  position:absolute;
-  bottom:-2em;
-  right:5px;
-  height:2em;
-  background-color: #4caf50;
-  color:white;
-  padding:8px 14px;
-  opacity:0.7;
-  transition:1s;
+height: 100%;
+background-color: #4caf50;
+color: white;
+padding: 8px 14px;
+opacity: 0;
+z-index: -1;
+transition: 1s;
+transition-timing-function: ease-out;
+width: 100%;
+top: 0;
+position: absolute;
+text-align: center;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: xxx-large;
 }
 </style>
 </head>
@@ -158,13 +168,13 @@ if (e.altKey && e.which === 80){
     setFocus();
 }
 //h1
-if (e.ctrlKey && e.which === 97){
+if (e.altKey && e.which === 97){
     e.preventDefault(e);
     document.execCommand('heading','','H1');
     setFocus();
 }
 //h2
-if (e.ctrlKey && e.which === 98){
+if (e.altKey && e.which === 98){
     e.preventDefault(e);
     document.execCommand('heading','','H2');
     setFocus();
@@ -199,6 +209,13 @@ if (e.altKey && e.which === 114){
     showBoard(3);
     setFocus();
 }
+//f3
+if (!e.altKey && e.which === 114){
+  e.preventDefault(e);
+  history.back(); 
+}
+
+
 });
 
 function save(){ // store the new content in localStorage when the button is clicked
@@ -207,15 +224,25 @@ function save(){ // store the new content in localStorage when the button is cli
   localStorage.boards1 = el[0].innerHTML;
   localStorage.boards2 = el[1].innerHTML;
   localStorage.boards3 = el[2].innerHTML;
-  notif.style.bottom = 0;
-  setTimeout(function() { notif.style.bottom = "-2em"; }, 4000);
+  notif.style.opacity = .7;
+  notif.style.zIndex = 99 ;
+  notif.textContent = "sauvé";
+  setTimeout(function() { notif.style.opacity = "0"; notif.style.zIndex = -1 ; }, 1000);
 }
 
-if(localStorage.getItem('boards')) { // apply the newContent when it exists in localStorage
+if(localStorage.getItem('boards1') || localStorage.getItem('boards2') || localStorage.getItem('boards3') ) { // apply the newContent when it exists in localStorage
   var el = document.getElementsByClassName('board');
   el[0].innerHTML = localStorage.getItem('boards1');
   el[1].innerHTML = localStorage.getItem('boards2');
   el[2].innerHTML = localStorage.getItem('boards3');
+  notif.textContent = "chargé";
+  notif.style.opacity = .7;
+  notif.style.zIndex = 99 ;
+  setTimeout(function() { notif.style.opacity = "0"; notif.style.zIndex = -1 ; }, 1000);
+  console.log('saved boards find');
+}else{
+  console.log('no saved boards find');
+
 }
 
 setFocus();
