@@ -1,3 +1,5 @@
+[demo](https://pi3141.github.io/tableau.html)
+
 # tableau [(english version below)](#tableau-en)
 Tableau blanc à utiliser avec un vidéoprojecteur. Utile en classe pour écrire au tableau (correction, cours, etc.)
 
